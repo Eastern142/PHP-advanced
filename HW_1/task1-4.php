@@ -2,23 +2,27 @@
 
 class Computer // Общий класс компьютер (родитель)
 {
-    public $processor; // Процессор
-    public $memory; // Память
-    public $graphic; // Видеокарта
+    protected $processor; // Процессор
+    protected $memory; // Память
+    protected $graphic; // Видеокарта
 
-    public function __construct($processor = null, $memory = null, $graphic = null)
+    protected function __construct($processor = null, $memory = null, $graphic = null)
     {
         $this->processor = $processor;
         $this->memory = $memory;
         $this->graphic = $graphic;
     }
 
-
     public function aboutMe() // Функция формирует информацию о компьютере
     {
-        echo "<p>Процессор: {$this->processor}</p>
-              <p>Память: {$this->memory} GB</p>
-              <p>Видеокарта: {$this->graphic}</p>";
+        echo $this->prepareContent();
+    }
+
+    protected function prepareContent()
+    {
+        return "<p>Процессор: {$this->processor}</p>
+                <p>Память: {$this->memory} GB</p>
+                <p>Видеокарта: {$this->graphic}</p>";
     }
 
     public function compareCharacteristic(Computer $computer) // Функция сравнения характеристик
@@ -32,7 +36,7 @@ class Computer // Общий класс компьютер (родитель)
 
 class Notebook extends Computer // Ветвь класса компьютер - ноутбук (наследник)
 {
-    public $mobility; // Дополнительное свойство наследника ноутбук (наследование - расширение функционала)
+    protected $mobility; // Дополнительное свойство наследника ноутбук (наследование - расширение функционала)
 
     public function __construct($processor = null, $memory = null, $graphic = null, $mobility = null)
     {
@@ -49,7 +53,7 @@ class Notebook extends Computer // Ветвь класса компьютер - 
 
 class PersonalComputer extends Computer // Ветвь класса компьютер - персональный компьютер (наследник)
 {
-    public $noiseLevel; // Дополнительное свойство наследника персональный компьютер (наследование - расширение функционала)
+    protected $noiseLevel; // Дополнительное свойство наследника персональный компьютер (наследование - расширение функционала)
 
     public function __construct($processor = null, $memory = null, $graphic = null, $noiseLevel = null)
     {
@@ -69,11 +73,11 @@ function showOptions(Computer $options) // Метод для пользоват�
     $options->aboutMe();
 }
 
-$notebook = new Notebook("Intel", 32, "Nvidia", "Да");
+$notebook = new Notebook("Intel", 32, "Nvidia", "Да"); // Экземпляр класса Ноутбук
 showOptions($notebook); // Запуск функции в контексте класса Notebook (полиморфизм)
 var_dump($notebook);
 
-$personalComputer = new PersonalComputer("AMD", 16, "AMD Radeon", 51);
+$personalComputer = new PersonalComputer("AMD", 16, "AMD Radeon", 51); // Экземпляр класса Персональный компьютер
 showOptions($personalComputer); // Запуск функции в контексте класса PersonalComputer (полиморфизм)
 var_dump($personalComputer);
 
