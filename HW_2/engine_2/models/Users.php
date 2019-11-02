@@ -1,25 +1,24 @@
 <?php
-
 /* Класс для работы с пользователями (Формирует структуру вокруг таблицы БД = users) */
 
 // app согласно стандарту PSR-0 (\<Vendor Name>\(<Namespace>\)*<Class Name>)
-// Пространство имен класса Users
+// Создаем ространство имен класса Users
 namespace app\models;
 
-class Users // Формирование структуры класса
+class Users extends GeneralModel // Формирование структуры класса (наследован от GeneralModel)
 {
     // Свойства
-
-    public $id; // ID пользователя
-    public $login; // Логин пользователя
-    public $password; // Пароль пользователя
-    public $hash; // Хеш пользователя
+    protected $id; // ID пользователя
+    protected $login; // Логин пользователя
+    protected $password; // Пароль пользователя
+    protected $hash; // Хеш пользователя
 
     // Методы
-
-    /* Пример __toString */
-    public function __toString()
+    /** Метод формирования имени таблицы в БД
+     * @return mixed|string Имя таблицы в БД
+     */
+    public function getTableName()
     {
-        return "Я класс Пользователи (Users)";
+        return "users";
     }
 }
